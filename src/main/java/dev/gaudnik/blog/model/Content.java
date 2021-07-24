@@ -2,13 +2,15 @@ package dev.gaudnik.blog.model;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 import java.util.UUID;
 
+@ToString
 @Getter
 public class Content {
 
-	protected UUID uuid = UUID.randomUUID();
+	protected UUID uuid;
 
 	protected String title;
 

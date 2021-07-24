@@ -11,7 +11,7 @@ import lombok.NonNull;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class RatingVO {
 
-	private Integer rating = 1;
+	private Integer rating;
 
 	private RatingVOConfig ratingVOConfig;
 
