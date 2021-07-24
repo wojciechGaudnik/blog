@@ -12,3 +12,6 @@ time in code quality, not the visual representation or infrastructure.
 You can decide whether you focus with implementation on the frontend or backend. Pick the
 one you feel more comfortable with.
 Treat the project as a PoC so e.g. persistent storage is not a requirement.
+
+
+OpenAPI: /swagger-ui.html
