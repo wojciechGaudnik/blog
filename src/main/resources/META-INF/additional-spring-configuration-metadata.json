@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "blog.logging",
+      "type": "java.lang.String",
+      "description": "Description for blog.logging."
+  }
+] }
