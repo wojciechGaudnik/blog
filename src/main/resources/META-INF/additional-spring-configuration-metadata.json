@@ -4,5 +4,10 @@
       "name": "blog.logging",
       "type": "java.lang.String",
       "description": "Description for blog.logging."
-  }
-] }
+    },
+    {
+      "name": "blog.rating.min",
+      "type": "java.lang.String",
+      "description": "Description for blog.rating.min."
+    }
+  ] }
