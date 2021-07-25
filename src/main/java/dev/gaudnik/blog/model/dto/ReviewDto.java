@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 @ToString
-public class BlogPostDto {
+public class ReviewDto {
 
 	private UUID uuid;
 
@@ -15,4 +15,5 @@ public class BlogPostDto {
 
 	private String content;
 
+	private Integer rating;
 }

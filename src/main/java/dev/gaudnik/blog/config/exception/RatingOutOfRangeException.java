@@ -1,4 +1,4 @@
-package dev.gaudnik.blog.exception;
+package dev.gaudnik.blog.config.exception;
 
 public class RatingOutOfRangeException extends RuntimeException {
 	public RatingOutOfRangeException(Integer min, Integer max, int rating) {

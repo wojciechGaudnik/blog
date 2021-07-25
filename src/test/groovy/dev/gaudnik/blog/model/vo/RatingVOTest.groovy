@@ -1,6 +1,6 @@
 package dev.gaudnik.blog.model.vo
 
-import dev.gaudnik.blog.exception.RatingOutOfRangeException
+import dev.gaudnik.blog.config.exception.RatingOutOfRangeException
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll

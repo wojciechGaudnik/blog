@@ -26,7 +26,7 @@ public class BlogPost extends Content {
 		return reviews;
 	}
 
-	public static BlogPost ofRequest(BlogPostAddRequest blogPostAddRequest) {
+	public static BlogPost ofRequest(@NonNull BlogPostAddRequest blogPostAddRequest) {
 		return BlogPost.builder().title(blogPostAddRequest.getTitle()).content(blogPostAddRequest.getContent()).build();
 	}
 
@@ -41,7 +41,7 @@ public class BlogPost extends Content {
 				.mapToInt(Integer::valueOf).sum() / reviews.size()));
 	}
 
-	public void setUuid(UUID newUuid) {
+	public void setUuid(@NonNull UUID newUuid) {
 		this.uuid = newUuid;
 	}
 }

@@ -1,4 +1,4 @@
-package dev.gaudnik.blog.config.exception;
+package dev.gaudnik.blog.config.exception.advisor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

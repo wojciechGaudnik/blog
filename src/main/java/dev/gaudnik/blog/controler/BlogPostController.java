@@ -1,8 +1,8 @@
 package dev.gaudnik.blog.controler;
 
 import dev.gaudnik.blog.config.log.Logging;
-import dev.gaudnik.blog.exception.NoSuchBlogPostException;
 import dev.gaudnik.blog.model.dto.BlogPostDto;
+import dev.gaudnik.blog.model.dto.BlogPostViewDto;
 import dev.gaudnik.blog.model.request.BlogPostAddRequest;
 import dev.gaudnik.blog.service.BlogPostService;
 import org.modelmapper.ModelMapper;
@@ -42,14 +42,14 @@ public class BlogPostController {
 
 	@Logging
 	@GetMapping(value = "/", produces = "application/json")
-	public Collection<BlogPostDto> getAllPosts() {
-		return blogPostService.getAllBlogPosts().stream().map(blogPost -> modelmapper.map(blogPost, BlogPostDto.class)).collect(Collectors.toList());
+	public Collection<BlogPostViewDto> getAllPosts() {
+		return blogPostService.getAllBlogPosts().stream().map(blogPost -> modelmapper.map(blogPost, BlogPostViewDto.class)).collect(Collectors.toList());
 	}
 
 	@Logging
 	@GetMapping(value = "/{uuid}")
-	public String get(@PathVariable UUID uuid) {
-		throw new NoSuchBlogPostException(uuid);
+	public BlogPostViewDto get(@PathVariable UUID uuid) {
+		return modelmapper.map(blogPostService.getByUuid(uuid), BlogPostViewDto.class);
 	}
 
 }

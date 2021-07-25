@@ -6,8 +6,8 @@ import lombok.ToString;
 
 import java.util.UUID;
 
-@ToString
 @Getter
+@ToString
 public class Content {
 
 	protected UUID uuid;

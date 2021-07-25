@@ -1,4 +1,4 @@
-package dev.gaudnik.blog.exception;
+package dev.gaudnik.blog.config.exception;
 
 import java.util.UUID;
 

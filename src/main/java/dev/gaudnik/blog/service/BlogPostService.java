@@ -1,21 +1,20 @@
 package dev.gaudnik.blog.service;
 
+import dev.gaudnik.blog.config.log.Logging;
 import dev.gaudnik.blog.model.BlogPost;
 import dev.gaudnik.blog.model.request.BlogPostAddRequest;
-import dev.gaudnik.blog.model.vo.RatingVOConfig;
 import dev.gaudnik.blog.repository.BlogPostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Service
 public class BlogPostService {
 
-	private final RatingVOConfig ratingVOConfig;
 	private final BlogPostRepository blogPostRepository;
 
-	public BlogPostService(RatingVOConfig ratingVOConfig, BlogPostRepository blogPostRepository) {
-		this.ratingVOConfig = ratingVOConfig;
+	public BlogPostService(BlogPostRepository blogPostRepository) {
 		this.blogPostRepository = blogPostRepository;
 	}
 
@@ -23,7 +22,13 @@ public class BlogPostService {
 		return blogPostRepository.getAllBlogPosts();
 	}
 
+	@Logging
 	public BlogPost addBlogPost(BlogPostAddRequest blogPostAddRequest) {
 		return blogPostRepository.addBlogPost(BlogPost.ofRequest(blogPostAddRequest));
+	}
+
+	@Logging
+	public BlogPost getByUuid(UUID uuid) {
+		return blogPostRepository.getBlogPostByUUID(uuid);
 	}
 }

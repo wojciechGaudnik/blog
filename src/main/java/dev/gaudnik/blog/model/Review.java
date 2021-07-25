@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
-@ToString
+import java.util.UUID;
+
 @Getter
+@ToString
 public class Review extends Content {
 
 	private final RatingVO rating;
@@ -16,5 +18,6 @@ public class Review extends Content {
 	public Review(@NonNull String title, @NonNull String content, @NonNull RatingVO rating) {
 		super(title, content);
 		this.rating = rating;
+		this.uuid = UUID.randomUUID();
 	}
 }
