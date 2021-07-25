@@ -29,7 +29,7 @@ class BlogPostArchiveControllerTest extends Specification {
 
     @Autowired
     BlogPostRepository blogPostRepository
-    
+
     @Shared
     String url = '/blogpostarchive/'
 
@@ -37,7 +37,9 @@ class BlogPostArchiveControllerTest extends Specification {
         given:
         def title = "title blog post test"
         def content = "content blog post test"
-        def blogPostToArchive = BlogPost.builder().title(title).content(content).build()
+        def blogPostToArchive = BlogPost.builder()
+                .title(title)
+                .content(content).build()
         blogPostRepository.addBlogPost(blogPostToArchive)
 
         expect:

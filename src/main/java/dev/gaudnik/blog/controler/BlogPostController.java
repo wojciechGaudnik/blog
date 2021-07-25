@@ -41,13 +41,13 @@ public class BlogPostController {
 
 	@Logging
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping(value = "/", consumes = "application/json")
+	@PostMapping(consumes = "application/json")
 	public BlogPostDto addBlogPost(@Valid @RequestBody BlogPostAddRequest blogPost) {
 		return modelmapper.map(blogPostService.addBlogPost(blogPost), BlogPostDto.class);
 	}
 
 	@Logging
-	@GetMapping(value = "/", produces = "application/json")
+	@GetMapping(produces = "application/json")
 	public Collection<BlogPostViewDto> getAllBlogPosts() {
 		return blogPostService.getAllBlogPosts().stream().map(blogPost -> modelmapper.map(blogPost, BlogPostViewDto.class)).collect(Collectors.toList());
 	}

@@ -1,6 +1,8 @@
 package dev.gaudnik.blog.model;
 
+import dev.gaudnik.blog.model.request.ReviewAddRequest;
 import dev.gaudnik.blog.model.vo.RatingVO;
+import dev.gaudnik.blog.model.vo.RatingVOConfig;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -19,5 +21,15 @@ public class Review extends Content {
 		super(title, content);
 		this.rating = rating;
 		this.uuid = UUID.randomUUID();
+	}
+
+	public static Review ofRequest(@NonNull ReviewAddRequest reviewAddRequest, RatingVOConfig ratingVOConfig) {
+		var ratingVo = RatingVO.builder()
+				.rating(reviewAddRequest.getRating())
+				.ratingVOConfig(ratingVOConfig).build();
+		return Review.builder()
+				.title(reviewAddRequest.getTitle())
+				.content(reviewAddRequest.getContent())
+				.rating(ratingVo).build();
 	}
 }

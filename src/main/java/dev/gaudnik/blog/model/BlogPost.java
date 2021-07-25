@@ -27,7 +27,9 @@ public class BlogPost extends Content {
 	}
 
 	public static BlogPost ofRequest(@NonNull BlogPostAddRequest blogPostAddRequest) {
-		return BlogPost.builder().title(blogPostAddRequest.getTitle()).content(blogPostAddRequest.getContent()).build();
+		return BlogPost.builder()
+				.title(blogPostAddRequest.getTitle())
+				.content(blogPostAddRequest.getContent()).build();
 	}
 
 	public void addReview(@NonNull Review review) {

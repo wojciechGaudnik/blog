@@ -21,7 +21,9 @@ class BlogPostTest extends Specification {
         mockReview3.getRating() >> mockRatingVO3
 
         when:
-        def post = BlogPost.builder().title("title test").content("content test").build()
+        def post = BlogPost.builder()
+                .title("title test")
+                .content("content test").build()
         post.addReview(mockReview1)
         post.addReview(mockReview2)
 

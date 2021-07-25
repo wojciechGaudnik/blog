@@ -42,11 +42,14 @@ class BlogPostControllerTest extends Specification {
 
     @Shared
     String url = '/blogpost/'
+
     def "should create BlogPost"() {
         given:
         def title = "title blog post test"
         def content = "content blog post test"
-        when(blogPostService.addBlogPost(any(BlogPostAddRequest.class))).thenReturn(BlogPost.builder().title(title).content(content).build())
+        when(blogPostService.addBlogPost(any(BlogPostAddRequest.class))).thenReturn(BlogPost.builder()
+                .title(title)
+                .content(content).build())
 
 
         expect:
@@ -71,12 +74,26 @@ class BlogPostControllerTest extends Specification {
         def blogPostContent2 = "blog post content 2"
         def rating1 = 2
         def rating2 = 4
-        def ratingVo1 = RatingVO.builder().rating(rating1).ratingVOConfig(ratingVOConfig).build()
-        def ratingVo2 = RatingVO.builder().rating(rating2).ratingVOConfig(ratingVOConfig).build()
-        def review1 = Review.builder().title(reviewTitle1).content(reviewContent1).rating(ratingVo1).build()
-        def review2 = Review.builder().title(reviewTitle2).content(reviewContent2).rating(ratingVo2).build()
-        def blogPost1 = BlogPost.builder().title(blogPostTitle1).content(blogPostContent1).build()
-        def blogPost2 = BlogPost.builder().title(blogPostTitle2).content(blogPostContent2).build()
+        def ratingVo1 = RatingVO.builder()
+                .rating(rating1)
+                .ratingVOConfig(ratingVOConfig).build()
+        def ratingVo2 = RatingVO.builder()
+                .rating(rating2)
+                .ratingVOConfig(ratingVOConfig).build()
+        def review1 = Review.builder()
+                .title(reviewTitle1)
+                .content(reviewContent1)
+                .rating(ratingVo1).build()
+        def review2 = Review.builder()
+                .title(reviewTitle2)
+                .content(reviewContent2)
+                .rating(ratingVo2).build()
+        def blogPost1 = BlogPost.builder()
+                .title(blogPostTitle1)
+                .content(blogPostContent1).build()
+        def blogPost2 = BlogPost.builder()
+                .title(blogPostTitle2)
+                .content(blogPostContent2).build()
         blogPost1.addReview(review1)
         blogPost1.addReview(review2)
         when(blogPostService.getAllBlogPosts()).thenReturn(Arrays.asList(blogPost1, blogPost2))
