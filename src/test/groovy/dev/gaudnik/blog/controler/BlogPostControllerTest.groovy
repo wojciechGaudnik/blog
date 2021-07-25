@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import spock.lang.Shared
 import spock.lang.Specification
 
 import static org.hamcrest.Matchers.hasSize
@@ -39,6 +40,8 @@ class BlogPostControllerTest extends Specification {
     @MockBean
     BlogPostService blogPostService
 
+    @Shared
+    String url = '/blogpost/'
     def "should create BlogPost"() {
         given:
         def title = "title blog post test"
@@ -47,7 +50,7 @@ class BlogPostControllerTest extends Specification {
 
 
         expect:
-        mvc.perform(post('/blogpost/')
+        mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n \"title\": \"" + title + "\",\n \"content\": \"" + content + "\" }"))
                 .andExpect(status().isCreated())
@@ -79,7 +82,7 @@ class BlogPostControllerTest extends Specification {
         when(blogPostService.getAllBlogPosts()).thenReturn(Arrays.asList(blogPost1, blogPost2))
 
         expect:
-        mvc.perform(get('/blogpost/')).andExpect(status().isOk())
+        mvc.perform(get(url)).andExpect(status().isOk())
                 .andExpect(jsonPath("\$", hasSize(2)))
                 .andExpect(jsonPath("\$[0].uuid").hasJsonPath())
                 .andExpect(jsonPath("\$[0].title").value(blogPostTitle1))
@@ -95,7 +98,7 @@ class BlogPostControllerTest extends Specification {
 
     def "should return bad request"() {
         when:
-        def response = mvc.perform(post('/blogpost/')
+        def response = mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n \"title\": \"ti\",\n \"content\": \"con\" }"))
 

@@ -28,4 +28,9 @@ public class BlogPostRepository {
 	public BlogPost getBlogPostByUUID(UUID uuid) {
 		return Optional.ofNullable(storage.get(uuid)).orElseThrow(() -> new NoSuchBlogPostException(uuid));
 	}
+
+	public BlogPost removeBlogPost(UUID uuid) {
+		return Optional.ofNullable(storage.remove(uuid)).orElseThrow(() -> new NoSuchBlogPostException(uuid));
+	}
+
 }

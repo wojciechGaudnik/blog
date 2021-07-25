@@ -24,7 +24,7 @@ public class ExceptionHandlerBlogPost {
 		ErrorMessageCustom errorMessageCustom = ErrorMessageCustom
 				.builder()
 				.status(HttpStatus.NO_CONTENT)
-				.error("No Such Post")
+				.error("No Such Blog Post")
 				.errors(errors)
 				.webRequest(request)
 				.build();

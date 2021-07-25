@@ -34,6 +34,12 @@ public class BlogPostController {
 	}
 
 	@Logging
+	@GetMapping(value = "/{uuid}", produces = "application/json")
+	public BlogPostViewDto getByUUID(@PathVariable UUID uuid) {
+		return modelmapper.map(blogPostService.getByUuid(uuid), BlogPostViewDto.class);
+	}
+
+	@Logging
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(value = "/", consumes = "application/json")
 	public BlogPostDto addBlogPost(@Valid @RequestBody BlogPostAddRequest blogPost) {
@@ -42,14 +48,8 @@ public class BlogPostController {
 
 	@Logging
 	@GetMapping(value = "/", produces = "application/json")
-	public Collection<BlogPostViewDto> getAllPosts() {
+	public Collection<BlogPostViewDto> getAllBlogPosts() {
 		return blogPostService.getAllBlogPosts().stream().map(blogPost -> modelmapper.map(blogPost, BlogPostViewDto.class)).collect(Collectors.toList());
-	}
-
-	@Logging
-	@GetMapping(value = "/{uuid}")
-	public BlogPostViewDto get(@PathVariable UUID uuid) {
-		return modelmapper.map(blogPostService.getByUuid(uuid), BlogPostViewDto.class);
 	}
 
 }
