@@ -58,4 +58,5 @@ class RatingVOTest extends Specification {
         and:
         newRatingVO2.getRating() == 2
     }
+
 }

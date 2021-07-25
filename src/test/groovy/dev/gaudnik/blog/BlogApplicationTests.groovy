@@ -16,5 +16,4 @@ class BlogApplicationTests extends Specification {
         blogController;
     }
 
-
 }

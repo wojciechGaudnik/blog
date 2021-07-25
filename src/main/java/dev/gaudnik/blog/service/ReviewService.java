@@ -1,9 +1,12 @@
 package dev.gaudnik.blog.service;
 
+import dev.gaudnik.blog.config.logging.Logging;
+import dev.gaudnik.blog.model.BlogPost;
 import dev.gaudnik.blog.model.Review;
 import dev.gaudnik.blog.model.request.ReviewAddRequest;
 import dev.gaudnik.blog.model.vo.RatingVOConfig;
 import dev.gaudnik.blog.repository.BlogPostRepository;
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -20,10 +23,18 @@ public class ReviewService {
 		this.ratingVOConfig = ratingVOConfig;
 	}
 
-	public Review addReview(UUID blogPostUuid, ReviewAddRequest reviewRequest) {
-		var blogPost = blogPostRepository.getBlogPostByUUID(blogPostUuid);
+	@Logging
+	public Review addReview(@NonNull UUID blogPostUuid, @NonNull ReviewAddRequest reviewRequest) {
+		var blogPost = blogPostRepository.getBlogPostByUuid(blogPostUuid);
 		var review = Review.ofRequest(reviewRequest, ratingVOConfig);
 		blogPost.addReview(review);
 		return review;
 	}
+
+	@Logging
+	public void deleteReview(@NonNull UUID uuid, @NonNull UUID reviewUuid) {
+		BlogPost blogPost = blogPostRepository.getBlogPostByUuid(uuid);
+		blogPost.deleteReview(reviewUuid);
+	}
+
 }

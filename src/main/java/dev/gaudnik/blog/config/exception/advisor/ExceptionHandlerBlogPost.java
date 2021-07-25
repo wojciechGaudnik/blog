@@ -1,6 +1,7 @@
 package dev.gaudnik.blog.config.exception.advisor;
 
 import dev.gaudnik.blog.config.exception.NoSuchBlogPostException;
+import dev.gaudnik.blog.config.exception.NoSuchReviewException;
 import dev.gaudnik.blog.config.exception.RatingOutOfRangeException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,20 @@ public class ExceptionHandlerBlogPost {
 	}
 
 
+	@ExceptionHandler({NoSuchReviewException.class})
+	public ResponseEntity<Object> handleNoSuchReviewException(Exception exception, WebRequest request) {
+		var errors = new HashMap<String, String>();
+		errors.put(DEFAULT_MESSAGE, exception.getMessage());
+		ErrorMessageCustom errorMessageCustom = ErrorMessageCustom
+				.builder()
+				.status(HttpStatus.UNPROCESSABLE_ENTITY)
+				.error("No Such Review")
+				.errors(errors)
+				.webRequest(request)
+				.build();
+		return new ResponseEntity<>(errorMessageCustom, new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+	}
+
 	@ExceptionHandler({RatingOutOfRangeException.class})
 	public ResponseEntity<Object> handleRatingOutOfRangeException(Exception exception, WebRequest request) {
 		var errors = new HashMap<String, String>();
@@ -59,4 +74,5 @@ public class ExceptionHandlerBlogPost {
 				.build();
 		return new ResponseEntity<>(errorMessageCustom, new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
 	}
+
 }

@@ -1,5 +1,6 @@
 package dev.gaudnik.blog.model;
 
+import dev.gaudnik.blog.config.exception.NoSuchReviewException;
 import dev.gaudnik.blog.model.request.BlogPostAddRequest;
 import dev.gaudnik.blog.model.vo.RatingVO;
 import lombok.Builder;
@@ -22,10 +23,6 @@ public class BlogPost extends Content {
 		super(title, content);
 	}
 
-	public Collection<Review> getReviews() {
-		return reviews;
-	}
-
 	public static BlogPost ofRequest(@NonNull BlogPostAddRequest blogPostAddRequest) {
 		return BlogPost.builder()
 				.title(blogPostAddRequest.getTitle())
@@ -36,6 +33,11 @@ public class BlogPost extends Content {
 		reviews.add(review);
 	}
 
+	public void deleteReview(@NonNull UUID uuid) {
+		Review reviewToDelete = reviews.stream().filter(review -> review.getUuid().equals(uuid)).findFirst().orElseThrow(() -> new NoSuchReviewException(uuid));
+		reviews.remove(reviewToDelete);
+	}
+
 	public Integer getAverageRating() {
 		return Math.toIntExact(Math.round((double) reviews.stream()
 				.map(Review::getRating)
@@ -43,7 +45,9 @@ public class BlogPost extends Content {
 				.mapToInt(Integer::valueOf).sum() / reviews.size()));
 	}
 
+
 	public void setUuid(@NonNull UUID newUuid) {
 		this.uuid = newUuid;
 	}
+
 }

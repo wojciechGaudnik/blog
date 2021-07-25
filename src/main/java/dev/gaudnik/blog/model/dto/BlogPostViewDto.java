@@ -9,6 +9,7 @@ import java.util.UUID;
 @Data
 @ToString
 public class BlogPostViewDto {
+
 	private UUID uuid;
 
 	private String title;
@@ -18,4 +19,5 @@ public class BlogPostViewDto {
 	private Integer averageRating;
 
 	private Collection<ReviewDto> reviews;
+
 }

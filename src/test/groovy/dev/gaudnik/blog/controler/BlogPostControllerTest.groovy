@@ -1,6 +1,7 @@
 package dev.gaudnik.blog.controler
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import dev.gaudnik.blog.config.BlogPostControllerConfiguration
 import dev.gaudnik.blog.model.BlogPost
 import dev.gaudnik.blog.model.Review
 import dev.gaudnik.blog.model.request.BlogPostAddRequest
@@ -26,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class BlogPostControllerTest extends Specification {
+class BlogPostControllerTest extends Specification implements BlogPostControllerConfiguration{
 
     @Autowired
     MockMvc mvc
@@ -41,39 +42,13 @@ class BlogPostControllerTest extends Specification {
     BlogPostService blogPostService
 
     @Shared
-    String url = '/blogpost/'
+    BlogPost blogPost1
 
-    def "should create BlogPost"() {
-        given:
-        def title = "title blog post test"
-        def content = "content blog post test"
-        when(blogPostService.addBlogPost(any(BlogPostAddRequest.class))).thenReturn(BlogPost.builder()
-                .title(title)
-                .content(content).build())
+    @Shared
+    BlogPost blogPost2
 
 
-        expect:
-        mvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\n \"title\": \"" + title + "\",\n \"content\": \"" + content + "\" }"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("\$.title").value(title))
-                .andExpect(jsonPath("\$.content").value(content))
-                .andExpect(jsonPath("\$.uuid").hasJsonPath())
-    }
-
-    def "should return all BlogPosts"() {
-        given:
-        def reviewTitle1 = "review title 1"
-        def reviewTitle2 = "review title 2"
-        def reviewContent1 = "review content title 1"
-        def reviewContent2 = "review content title 2"
-        def blogPostTitle1 = "blog post title 1"
-        def blogPostTitle2 = "blog post title 2"
-        def blogPostContent1 = "blog post content 1"
-        def blogPostContent2 = "blog post content 2"
-        def rating1 = 2
-        def rating2 = 4
+    def setup() {
         def ratingVo1 = RatingVO.builder()
                 .rating(rating1)
                 .ratingVOConfig(ratingVOConfig).build()
@@ -88,14 +63,35 @@ class BlogPostControllerTest extends Specification {
                 .title(reviewTitle2)
                 .content(reviewContent2)
                 .rating(ratingVo2).build()
-        def blogPost1 = BlogPost.builder()
+        blogPost1 = BlogPost.builder()
                 .title(blogPostTitle1)
                 .content(blogPostContent1).build()
-        def blogPost2 = BlogPost.builder()
+        blogPost2 = BlogPost.builder()
                 .title(blogPostTitle2)
                 .content(blogPostContent2).build()
         blogPost1.addReview(review1)
         blogPost1.addReview(review2)
+    }
+
+    def "should create BlogPost"() {
+        given:
+        when(blogPostService.addBlogPost(any(BlogPostAddRequest.class))).thenReturn(BlogPost.builder()
+                .title(blogPostTitle1)
+                .content(blogPostContent1).build())
+
+
+        expect:
+        mvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n \"title\": \"" + blogPostTitle1 + "\",\n \"content\": \"" + blogPostContent1 + "\" }"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("\$.title").value(blogPostTitle1))
+                .andExpect(jsonPath("\$.content").value(blogPostContent1))
+                .andExpect(jsonPath("\$.uuid").hasJsonPath())
+    }
+
+    def "should return all BlogPosts"() {
+        given:
         when(blogPostService.getAllBlogPosts()).thenReturn(Arrays.asList(blogPost1, blogPost2))
 
         expect:

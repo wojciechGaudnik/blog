@@ -21,4 +21,5 @@ public class RatingVOConfig {
 	public Integer getMaxRating() {
 		return Integer.valueOf(maxRating);
 	}
+
 }

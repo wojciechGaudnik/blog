@@ -11,4 +11,5 @@ public class ReviewAddRequest extends ContentRequest {
 
 	@NotNull
 	private Integer rating;
+
 }

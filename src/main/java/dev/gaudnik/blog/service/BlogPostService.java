@@ -1,10 +1,11 @@
 package dev.gaudnik.blog.service;
 
-import dev.gaudnik.blog.config.log.Logging;
+import dev.gaudnik.blog.config.logging.Logging;
 import dev.gaudnik.blog.model.BlogPost;
 import dev.gaudnik.blog.model.request.BlogPostAddRequest;
 import dev.gaudnik.blog.repository.BlogPostArchiveRepository;
 import dev.gaudnik.blog.repository.BlogPostRepository;
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -27,17 +28,18 @@ public class BlogPostService {
 	}
 
 	@Logging
-	public BlogPost addBlogPost(BlogPostAddRequest blogPostAddRequest) {
+	public BlogPost addBlogPost(@NonNull BlogPostAddRequest blogPostAddRequest) {
 		return blogPostRepository.addBlogPost(BlogPost.ofRequest(blogPostAddRequest));
 	}
 
 	@Logging
-	public BlogPost getByUuid(UUID uuid) {
-		return blogPostRepository.getBlogPostByUUID(uuid);
+	public BlogPost getByUuid(@NonNull UUID uuid) {
+		return blogPostRepository.getBlogPostByUuid(uuid);
 	}
 
 	@Logging
-	public BlogPost archiveBlogPost(UUID uuid) {
+	public BlogPost archiveBlogPost(@NonNull UUID uuid) {
 		return blogPostArchiveRepository.archiveBlogPost( blogPostRepository.removeBlogPost(uuid));
 	}
+
 }

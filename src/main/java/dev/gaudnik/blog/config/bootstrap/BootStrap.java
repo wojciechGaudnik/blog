@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class BootStrap implements CommandLineRunner {
 
 	@Value("${blog.bootstrap}")
-	private String bootstrap;
+	private String bootstrapCondition;
 
 	private final BlogPostRepository blogPostRepository;
 
@@ -25,8 +25,8 @@ public class BootStrap implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
-		if (bootstrap.equals("true")) {
+	public void run(String... args) {
+		if (bootstrapCondition.equals("true")) {
 			var rating1 = RatingVO.builder()
 					.rating(2)
 					.ratingVOConfig(ratingVOConfig).build();
@@ -65,6 +65,5 @@ public class BootStrap implements CommandLineRunner {
 			blogPostRepository.addBlogPost(blogPost3);
 		}
 	}
-
 
 }

@@ -16,4 +16,5 @@ public class ContentRequest {
 	@NotBlank
 	@Size(min = 3, max = 5000, message = "content length out of range")
 	private String content;
+
 }

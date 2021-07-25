@@ -19,7 +19,14 @@ public class ModelMapperConfig {
 				.setFieldMatchingEnabled(true)
 				.setSkipNullEnabled(true);
 
-		modelMapper.createTypeMap(Review.class, ReviewDto.class).addMapping(review -> review.getRating().getRating(), ReviewDto::setRating);
+		addReviewToDtoTypeMap(modelMapper);
 		return modelMapper;
 	}
+
+	private void addReviewToDtoTypeMap(ModelMapper modelMapper) {
+		modelMapper
+				.createTypeMap(Review.class, ReviewDto.class)
+				.addMapping(review -> review.getRating().getRating(), ReviewDto::setRating);
+	}
+
 }

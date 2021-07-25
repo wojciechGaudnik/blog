@@ -29,6 +29,6 @@ class BlogPostTest extends Specification {
 
         then:
         post.getAverageRating() == 2
-
     }
+
 }

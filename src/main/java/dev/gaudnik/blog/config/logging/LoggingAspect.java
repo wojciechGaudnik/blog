@@ -1,4 +1,4 @@
-package dev.gaudnik.blog.config.log;
+package dev.gaudnik.blog.config.logging;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -19,20 +19,24 @@ public class LoggingAspect {
 	@Around("@annotation(Logging)")
 	public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
 		if (logging.equals("true")) {
-			ObjectMapper mapper = new ObjectMapper();
-			String methodName = joinPoint.getSignature().getName();
-			String className = joinPoint.getTarget().getClass().toString();
-			Object[] array = joinPoint.getArgs();
-			log.info("method invoked " + className + " : " + methodName + "()" + " arguments : "
-					+ mapper.writeValueAsString(array));
-			Object object = joinPoint.proceed();
-			log.info(className + " : " + methodName + "()" + "Response : "
-					+ mapper.writeValueAsString(object));
-			return object;
+			return logMessages(joinPoint);
 		} else if (logging.equals("false")) {
 			return joinPoint.proceed();
 		}
 		throw new IllegalArgumentException("Wrong value in application.properties, blog.logging should be \"true\" or \"false\"");
-
 	}
+
+	private Object logMessages(ProceedingJoinPoint joinPoint) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		String methodName = joinPoint.getSignature().getName();
+		String className = joinPoint.getTarget().getClass().toString();
+		Object[] array = joinPoint.getArgs();
+		log.info("method invoked " + className + " : " + methodName + "()" + " arguments : "
+				+ mapper.writeValueAsString(array));
+		Object object = joinPoint.proceed();
+		log.info(className + " : " + methodName + "()" + "Response : "
+				+ mapper.writeValueAsString(object));
+		return object;
+	}
+
 }

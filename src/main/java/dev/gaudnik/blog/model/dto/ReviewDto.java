@@ -16,4 +16,5 @@ public class ReviewDto {
 	private String content;
 
 	private Integer rating;
+
 }

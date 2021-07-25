@@ -1,6 +1,6 @@
 package dev.gaudnik.blog.controler;
 
-import dev.gaudnik.blog.config.log.Logging;
+import dev.gaudnik.blog.config.logging.Logging;
 import dev.gaudnik.blog.model.dto.BlogPostDto;
 import dev.gaudnik.blog.model.dto.BlogPostViewDto;
 import dev.gaudnik.blog.model.request.BlogPostAddRequest;

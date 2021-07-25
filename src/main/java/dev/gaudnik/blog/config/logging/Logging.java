@@ -1,4 +1,4 @@
-package dev.gaudnik.blog.config.log;
+package dev.gaudnik.blog.config.logging;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

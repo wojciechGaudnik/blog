@@ -20,4 +20,5 @@ public class Content {
 		this.title = title;
 		this.content = content;
 	}
+
 }

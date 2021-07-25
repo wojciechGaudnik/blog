@@ -1,6 +1,7 @@
 package dev.gaudnik.blog.repository;
 
 import dev.gaudnik.blog.config.exception.NoSuchBlogPostException;
+import dev.gaudnik.blog.config.logging.Logging;
 import dev.gaudnik.blog.model.BlogPost;
 import org.springframework.stereotype.Component;
 
@@ -19,16 +20,19 @@ public class BlogPostRepository {
 		return new ArrayList<>(storage.values());
 	}
 
+	@Logging
 	public BlogPost addBlogPost(BlogPost blogPost) {
 		blogPost.setUuid(UUID.randomUUID());
 		storage.put(blogPost.getUuid(), blogPost);
 		return blogPost;
 	}
 
-	public BlogPost getBlogPostByUUID(UUID uuid) {
+	@Logging
+	public BlogPost getBlogPostByUuid(UUID uuid) {
 		return Optional.ofNullable(storage.get(uuid)).orElseThrow(() -> new NoSuchBlogPostException(uuid));
 	}
 
+	@Logging
 	public BlogPost removeBlogPost(UUID uuid) {
 		return Optional.ofNullable(storage.remove(uuid)).orElseThrow(() -> new NoSuchBlogPostException(uuid));
 	}

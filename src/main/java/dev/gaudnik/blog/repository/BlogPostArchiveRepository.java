@@ -1,5 +1,6 @@
 package dev.gaudnik.blog.repository;
 
+import dev.gaudnik.blog.config.logging.Logging;
 import dev.gaudnik.blog.model.BlogPost;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +12,10 @@ public class BlogPostArchiveRepository {
 
 	private final HashMap<UUID, BlogPost> archive = new HashMap<>();
 
+	@Logging
 	public BlogPost archiveBlogPost(BlogPost blogPostToArchive) {
 		archive.put(blogPostToArchive.getUuid(), blogPostToArchive);
 		return archive.get(blogPostToArchive.getUuid());
 	}
+
 }

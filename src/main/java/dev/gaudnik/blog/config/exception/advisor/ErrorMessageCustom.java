@@ -40,7 +40,6 @@ public class ErrorMessageCustom {
 
 	public String getPath(){
 		return (this.webRequest != null)?((ServletWebRequest) this.webRequest).getRequest().getRequestURI():null;
-
 	}
 
 	public int getStatus(){
@@ -50,4 +49,5 @@ public class ErrorMessageCustom {
 	public String getError() {
 		return WordUtils.capitalizeFully(error.replace("_", " ").replaceAll("(\\d)+\\s", ""));
 	}
+
 }

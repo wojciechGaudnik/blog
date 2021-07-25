@@ -46,5 +46,9 @@ class BlogPostArchiveControllerTest extends Specification {
         mvc.perform(post(url + blogPostToArchive.getUuid())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isAccepted())
+        mvc.perform(post(url + blogPostToArchive.getUuid())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(422))
+
     }
 }

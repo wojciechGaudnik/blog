@@ -1,6 +1,6 @@
 package dev.gaudnik.blog.controler;
 
-import dev.gaudnik.blog.config.log.Logging;
+import dev.gaudnik.blog.config.logging.Logging;
 import dev.gaudnik.blog.model.dto.BlogPostDto;
 import dev.gaudnik.blog.service.BlogPostService;
 import org.modelmapper.ModelMapper;
@@ -32,4 +32,5 @@ public class BlogPostArchiveController {
 	public BlogPostDto addBlogPost(@PathVariable UUID uuid) {
 		return modelmapper.map(blogPostService.archiveBlogPost(uuid), BlogPostDto.class);
 	}
+
 }
