@@ -32,4 +32,8 @@ public class Review extends Content {
 				.content(reviewAddRequest.getContent())
 				.rating(ratingVo).build();
 	}
+
+	public Integer getRating() {
+		return rating.getRating();
+	}
 }

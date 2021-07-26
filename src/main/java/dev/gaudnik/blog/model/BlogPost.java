@@ -41,7 +41,6 @@ public class BlogPost extends Content {
 	public Integer getAverageRating() {
 		return Math.toIntExact(Math.round((double) reviews.stream()
 				.map(Review::getRating)
-				.map(RatingVO::getRating)
 				.mapToInt(Integer::valueOf).sum() / reviews.size()));
 	}
 
